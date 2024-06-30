@@ -1,0 +1,32 @@
+{% extends 'trade/base.html' %}
+
+{% block content %}
+
+<div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th scope="col">Наименование</th>
+              <th scope="col">Описание</th>
+            </tr>
+          </thead>
+          <tbody>
+
+              <tr>
+              <td><a href="{% url 'reports_salary_manage'  %}">Доли продажи по менеджерам</a></td>
+              <td>Доли продажи по менеджерам</td>
+            </tr>
+            <tr>
+              <td><a href="{% url 'reports_salary_managers_сomparison'  %}">Сравнение продаж по менеджерам</a></td>
+              <td>Сравнение продаж по менеджерам</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+
+
+{% endblock%}

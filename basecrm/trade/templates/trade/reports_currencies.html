@@ -1,0 +1,29 @@
+{% extends 'trade/base.html' %}
+
+{% block content %}
+
+<div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th scope="col">Наименование</th>
+              <th scope="col">Описание</th>
+            </tr>
+          </thead>
+          <tbody>
+
+              <tr>
+              <td><a href="{% url 'reports_currencies_uah'  %}">UAH (гривна) курс валют </a></td>
+              <td>UAH (гривна) курс валют</td>
+            </tr>
+
+
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+
+
+{% endblock%}

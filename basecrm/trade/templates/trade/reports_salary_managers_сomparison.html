@@ -1,0 +1,89 @@
+{% extends 'trade/base.html' %}
+
+{% block content %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+
+<form class="row g-3" action="" method="post">
+    {% csrf_token %}
+  <div class="col-auto">
+    <label  class="visually-hidden">Период с</label>
+    {{ form.date_start }}
+  </div>
+  <div class="col-auto">
+    <label class="visually-hidden">по</label>
+    {{ form.date_end }}
+  </div>
+  <div class="col-auto">
+   {{ form.listparam1 }}
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary mb-2">Сформировать</button>
+  </div>
+  {% if managers|length  > 0 %}
+   <canvas id="myChart" width=50" height="20"></canvas>
+{% else %}
+<p class="text-success">Нет данных для отображения, попробуйте изменить параметры</p>
+{% endif %}
+</form>
+
+
+
+
+{% autoescape off %}
+<script>
+
+
+const data = {
+  labels: {{ dates }} ,
+  datasets: {{ dataset }}
+};
+
+const ctx = document.getElementById('myChart');
+
+
+
+new Chart(ctx, {
+  type: "line",
+  data: data,
+  options: {
+    responsive: true,
+    scales: {
+      x: {
+        display: true,
+        title: {
+          display: true,
+          text: 'Month',
+          color: '#911',
+          font: {
+            family: 'Comic Sans MS',
+            size: 20,
+            weight: 'bold',
+            lineHeight: 1.2,
+          },
+          padding: {top: 20, left: 0, right: 0, bottom: 0}
+        }
+      },
+      y: {
+        display: true,
+        title: {
+          display: true,
+          text: 'Value',
+          color: '#191',
+          font: {
+            family: 'Times',
+            size: 20,
+            style: 'normal',
+            lineHeight: 1.2
+          },
+          padding: {top: 30, left: 0, right: 0, bottom: 0}
+        }
+      }
+    }
+  },
+});
+</script>
+{% endautoescape %}
+{% endblock%}

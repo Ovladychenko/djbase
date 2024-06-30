@@ -1,0 +1,27 @@
+{% extends 'trade/base.html' %}
+
+{% block content %}
+ <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th scope="col">Код</th>
+              <th scope="col">Наименование</th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for m in datalist %}
+              <tr>
+              <td>{{m.Code}}</td>
+              <td>{{m.Name}}</td>
+            </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+
+
+ {% endblock%}

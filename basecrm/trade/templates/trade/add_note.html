@@ -1,0 +1,27 @@
+{% extends 'trade/base.html' %}
+
+{% block content %}
+<h5>Новая заметка</h5>
+<form  action="{% url 'add_note' %}" method="post">
+    {% csrf_token %}
+
+
+
+    <div class="form-group col-md-11">
+    <label for="{{ form.title.id_for_label }}">{{form.title.label}}</label>
+      {{ form.title }}
+  </div>
+
+       <div class="form-group col-md-11">
+
+      {{ form.content }}
+  </div>
+
+ <div class="col-auto">
+    <button type="submit" class="btn btn-primary mb-3">Добавить</button>
+  </div>
+
+
+</form>
+
+{% endblock%}

@@ -1,0 +1,78 @@
+{% extends 'trade/base.html' %}
+
+{% block content %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+
+<form class="row g-3" action="" method="post">
+    {% csrf_token %}
+  <div class="col-auto">
+    <label  class="visually-hidden">Период с</label>
+    {{ form.date_start }}
+  </div>
+  <div class="col-auto">
+    <label class="visually-hidden">по</label>
+    {{ form.date_end }}
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary mb-2">Сформировать</button>
+  </div>
+</form>
+
+
+{% if managers|length  > 0 %}
+   <canvas id="myChart" style="width:60%;"></canvas>
+{% else %}
+<p class="text-success">Нет данных для отображения, попробуйте изменить параметры</p>
+{% endif %}
+
+
+
+{% autoescape off %}
+<script>
+var xValues = {{ managers }};
+var yValues = {{ percents }};
+var barColors = {{ colors }};
+const ctx = document.getElementById('myChart');
+
+
+
+new Chart(ctx, {
+  type: "pie",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    tooltips: {
+    enabled: true
+    },
+    responsive: false,
+    maintainAspectRatio: true,
+    title: {
+      display: true,
+      text: "Доли продаж по менеджерам/торговым"
+    },
+    plugins: {
+    datalabels: {
+      formatter: (value, ctx) => {
+
+        let sum = ctx.dataset._meta[0].total;
+        let percentage = (value * 100 / sum).toFixed(0) + "%";
+        return percentage;
+
+
+      },
+      color: '#fff',
+    }
+  }
+  }
+});
+</script>
+{% endautoescape %}
+{% endblock%}
