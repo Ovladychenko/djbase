@@ -22,7 +22,13 @@ from .report_utils import *
 
 menu_directory = [{'title': 'Контрагенты', 'ref': 'сlients'}, {'title': 'Номенклатура', 'ref': 'goods'},
                   {'title': 'Торговые', 'ref': 'employees'}]
-menu_documents = ["Продажи", "Оплаты", "Возвраты"]
+#menu_documents = ["Продажи", "Оплаты", "Возвраты"]
+
+menu_documents = [{'title':'Продажи','ref':'documents_sales'},
+                  {'title':'Оплаты','ref':'documents_sales'},
+                  {'title':'Возвраты','ref':'documents_sales'}
+                  ]
+
 menu_reports = [{'title': 'Продажи', 'ref': 'reports_salary'},
                 {'title': 'Оплаты', 'ref': 'reports_salary'},
                 {'title': 'Взаиморасчеты', 'ref': 'reports_salary'},
@@ -332,3 +338,16 @@ def reports_salary_managers_сomparison(request):
     c_def = DataMixin.get_menu_context()
     context = dict(list(context.items()) + list(c_def.items()))
     return render(request, 'trade/reports_salary_managers_сomparison.html', context)
+
+def documents_sales(request):
+    param_goods = {}
+    headers = {'Accept': 'application/json'}
+    name_method = "documents_sales"
+    url = 'http://localhost/CRM/hs/getDocumentsSales/' + name_method + "/" + json.dumps(param_goods)
+    response = requests.get(url, auth=HTTPBasicAuth('Admin', '123'), headers=headers)
+    response.encoding = 'utf-8-sig'
+    data = json.loads(response.text)
+
+    return render(request, 'trade/documents_sales.html',
+                  {'menu_directory': menu_directory, 'menu_documents': menu_documents, 'menu_reports': menu_reports,
+                   'datalist': data})
