@@ -64,6 +64,7 @@ def goods(request):
     response.encoding = 'utf-8-sig'
     data = json.loads(response.text)
 
+
     return render(request, 'trade/goods.html',
                   {'menu_directory': menu_directory, 'menu_documents': menu_documents, 'menu_reports': menu_reports,
                    'datalist': data})
@@ -340,14 +341,16 @@ def reports_salary_managers_сomparison(request):
     return render(request, 'trade/reports_salary_managers_сomparison.html', context)
 
 def documents_sales(request):
-    param_goods = {}
+    param_doc = {}
     headers = {'Accept': 'application/json'}
-    name_method = "documents_sales"
-    url = 'http://localhost/CRM/hs/getDocumentsSales/' + name_method + "/" + json.dumps(param_goods)
+    name_method = "getDocumentsSales"
+    url = 'http://localhost/CRM/hs/getData/' + name_method + "/" + json.dumps(param_doc)
     response = requests.get(url, auth=HTTPBasicAuth('Admin', '123'), headers=headers)
     response.encoding = 'utf-8-sig'
     data = json.loads(response.text)
+    print(response.text)
 
     return render(request, 'trade/documents_sales.html',
                   {'menu_directory': menu_directory, 'menu_documents': menu_documents, 'menu_reports': menu_reports,
                    'datalist': data})
+
