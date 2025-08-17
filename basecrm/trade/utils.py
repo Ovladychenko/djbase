@@ -1,6 +1,10 @@
 menu_directory = [{'title': 'Контрагенты', 'ref': 'сlients'}, {'title': 'Номенклатура', 'ref': 'goods'},
                   {'title': 'Торговые', 'ref': 'employees'}]
-menu_documents = ["Продажи", "Оплаты", "Возвраты"]
+
+menu_documents = [{'title':'Продажи','ref':'documents_sales'},
+                  {'title':'Оплаты','ref':'documents_sales'},
+                  {'title':'Возвраты','ref':'documents_sales'}
+                 ]
 menu_reports = [{'title': 'Продажи', 'ref': 'reports_salary'},
                 {'title': 'Оплаты', 'ref': 'reports_salary'},
                 {'title': 'Взаиморасчеты', 'ref': 'reports_salary'},

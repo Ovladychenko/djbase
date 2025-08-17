@@ -20,25 +20,12 @@ from django.db.models import Q
 from .report_utils import *
 
 
-menu_directory = [{'title': 'Контрагенты', 'ref': 'сlients'}, {'title': 'Номенклатура', 'ref': 'goods'},
-                  {'title': 'Торговые', 'ref': 'employees'}]
-#menu_documents = ["Продажи", "Оплаты", "Возвраты"]
-
-menu_documents = [{'title':'Продажи','ref':'documents_sales'},
-                  {'title':'Оплаты','ref':'documents_sales'},
-                  {'title':'Возвраты','ref':'documents_sales'}
-                  ]
-
-menu_reports = [{'title': 'Продажи', 'ref': 'reports_salary'},
-                {'title': 'Оплаты', 'ref': 'reports_salary'},
-                {'title': 'Взаиморасчеты', 'ref': 'reports_salary'},
-                {'title': 'Валюты', 'ref': 'reports_currencies'}
-                ]
-
-
 def index(request):
-    return render(request, 'trade/index.html',
-                  {'menu_directory': menu_directory, 'menu_documents': menu_documents, 'menu_reports': menu_reports})
+    context = {
+    }
+    c_def = DataMixin.get_menu_context()
+    context = dict(list(context.items()) + list(c_def.items()))
+    return render(request, 'trade/index.html',context)
 
 
 def сlients(request):
@@ -50,9 +37,13 @@ def сlients(request):
     response.encoding = 'utf-8-sig'
     data = json.loads(response.text)
 
-    return render(request, 'trade/clients.html',
-                  {'menu_directory': menu_directory, 'menu_documents': menu_documents, 'menu_reports': menu_reports,
-                   'datalist': data})
+    context = {
+        'datalist': data,
+    }
+    c_def = DataMixin.get_menu_context()
+    context = dict(list(context.items()) + list(c_def.items()))
+
+    return render(request, 'trade/clients.html',context)
 
 
 def goods(request):
@@ -64,10 +55,13 @@ def goods(request):
     response.encoding = 'utf-8-sig'
     data = json.loads(response.text)
 
+    context = {
+        'datalist': data,
+    }
+    c_def = DataMixin.get_menu_context()
+    context = dict(list(context.items()) + list(c_def.items()))
 
-    return render(request, 'trade/goods.html',
-                  {'menu_directory': menu_directory, 'menu_documents': menu_documents, 'menu_reports': menu_reports,
-                   'datalist': data})
+    return render(request, 'trade/goods.html',context)
 
 
 def employees(request):
@@ -79,9 +73,12 @@ def employees(request):
     response.encoding = 'utf-8-sig'
     data = json.loads(response.text)
 
-    return render(request, 'trade/employees.html',
-                  {'menu_directory': menu_directory, 'menu_documents': menu_documents, 'menu_reports': menu_reports,
-                   'datalist': data})
+    context = {
+        'datalist': data,
+    }
+    c_def = DataMixin.get_menu_context()
+    context = dict(list(context.items()) + list(c_def.items()))
+    return render(request, 'trade/employees.html',context)
 
 
 def pageNotFound(request, exeption):
@@ -350,7 +347,11 @@ def documents_sales(request):
     data = json.loads(response.text)
     print(response.text)
 
-    return render(request, 'trade/documents_sales.html',
-                  {'menu_directory': menu_directory, 'menu_documents': menu_documents, 'menu_reports': menu_reports,
-                   'datalist': data})
+    context = {
+        'datalist': data,
+    }
+    c_def = DataMixin.get_menu_context()
+    context = dict(list(context.items()) + list(c_def.items()))
+
+    return render(request, 'trade/documents_sales.html',context)
 
